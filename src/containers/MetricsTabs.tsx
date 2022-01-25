@@ -2,6 +2,7 @@ import { Tabs, TabPanel, Tab, TabList } from 'react-tabs';
 import { css } from '@emotion/react';
 
 import { useMetricsContext } from './MetricsProvider';
+import { getMetricLabel, MetricsEnum } from '../types/MetricsEnum';
 
 const tabsStyles = css`
   .react-tabs__tab-list {
@@ -29,10 +30,16 @@ const tabsStyles = css`
     }
 
     & > button {
-      border: none;
+      border: 0;
       background: none;
-      padding: 1px;
+      padding: 3px;
       cursor: pointer;
+      color: var(--color-disabled);
+
+      &:hover {
+        border-radius: 100rem;
+        background-color: var(--color-background);
+      }
     }
   }
 
@@ -50,7 +57,7 @@ export const MetricsTabs = () => {
       <TabList>
         {metrics.map((name) => (
           <Tab key={name}>
-            {name}{' '}
+            <span>{getMetricLabel(name as MetricsEnum) || name} </span>
             <button
               title="Remove metric"
               type="button"

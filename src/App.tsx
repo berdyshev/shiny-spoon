@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { MetricsProvider } from './containers/MetricsProvider';
 import { DateFilter } from './containers/DateFilter';
 import { MetricsTabs } from './containers/MetricsTabs';
+import { AddMetricButton } from './containers/AddMetricButton';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <h1>Athenian WebApp Tech Assessment</h1>
           <div className="actions">
             <DateFilter />
+            <AddMetricButton />
           </div>
           <div className="insights">
             <h2>Insights</h2>

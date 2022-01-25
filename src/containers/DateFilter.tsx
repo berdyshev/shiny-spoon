@@ -23,7 +23,7 @@ export const DateFilter = () => {
     <Popover
       isOpen={isVisible}
       positions={['bottom', 'left']}
-      align={'end'}
+      align="end"
       onClickOutside={() => setIsVisible(false)}
       content={
         <div id="date-filter-popover" aria-labelledby="Date Picker Popover">
