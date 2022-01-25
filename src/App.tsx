@@ -1,11 +1,11 @@
-import React from 'react';
 import { css } from '@emotion/react';
 import logo from './logo-grey.png';
-import timeseriesScreen from './timeseries-screen.png';
-import histogramScreen from './histogram-screen.png';
-import kpiScreen from './kpi-screen.png';
+// import timeseriesScreen from './timeseries-screen.png';
+// import histogramScreen from './histogram-screen.png';
+// import kpiScreen from './kpi-screen.png';
 import { MetricsProvider } from './containers/MetricsProvider';
 import { DateFilter } from './containers/DateFilter';
+import { MetricsTabs } from './containers/MetricsTabs';
 
 const App = () => {
   return (
@@ -27,45 +27,12 @@ const App = () => {
           </div>
           <div className="insights">
             <h2>Insights</h2>
-            <Tabs>
-              <Box metricName="X"></Box>
-            </Tabs>
+            <MetricsTabs />
             <div className="control"></div>
           </div>
         </div>
       </div>
     </MetricsProvider>
-  );
-};
-
-const Tabs: React.FunctionComponent = ({ children }) => {
-  return (
-    <div>
-      <div css={tabsStyle}>
-        <span>Tab 1</span>
-        <span>Tab 2</span>
-        <span>Tab ...</span>
-        <span>Tab n</span>
-        <button>Add</button>
-      </div>
-      {children}
-    </div>
-  );
-};
-
-const Box: React.FunctionComponent<{ metricName: string }> = ({
-  metricName,
-}) => {
-  return (
-    <div css={boxStyle}>
-      <button>X</button>
-      <h3>Insights for metric {metricName}</h3>
-      <div>
-        <img className="chart" src={timeseriesScreen} alt="timeseries-chart" />
-        <img className="chart" src={histogramScreen} alt="histogram-chart" />
-      </div>
-      <img className="kpi" src={kpiScreen} alt="kpi" />
-    </div>
   );
 };
 
@@ -85,42 +52,6 @@ const appStyle = () => {
       padding: 30px 0;
       width: 90%;
       border: 3px black solid;
-    }
-  `;
-};
-
-const tabsStyle = () => {
-  return css`
-    width: 75%;
-    margin: 0px auto;
-
-    & > span,
-    button {
-      border: 3px black solid;
-      width: 70px;
-      height: 24px;
-      padding: 0px 10px;
-    }
-  `;
-};
-
-const boxStyle = () => {
-  return css`
-    width: 75%;
-    margin: 0px auto;
-    text-align: center;
-    border: 3px black solid;
-
-    & img.chart {
-      width: 45%;
-      height: 200px;
-      margin: 5px 5px;
-    }
-
-    & img.kpi {
-      width: 45%;
-      height: 50px;
-      margin: 5px 5px;
     }
   `;
 };
