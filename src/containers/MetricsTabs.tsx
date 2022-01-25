@@ -9,23 +9,23 @@ const tabsStyles = css`
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 20px;
+    gap: 1.25rem;
     justify-content: center;
   }
 
   .react-tabs__tab {
     display: inline-flex;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 0.625rem;
     min-width: 50px;
-    padding: 10px;
+    padding: 0.625rem;
     align-items: center;
     justify-content: space-between;
     border-bottom: 0.3rem solid transparent;
     cursor: pointer;
 
     &--selected {
-      border-bottom-color: rgb(255, 160, 8);
+      border-bottom-color: var(--color-accent);
     }
 
     & > button {
@@ -37,8 +37,8 @@ const tabsStyles = css`
   }
 
   .react-tabs__tab-panel--selected {
-    border-top: 1px solid #e3e6f0;
-    padding: 20px;
+    border-top: 1px solid var(--color-border);
+    padding: 1.25rem;
   }
 `;
 

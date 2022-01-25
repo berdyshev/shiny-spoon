@@ -1,8 +1,5 @@
 import { css } from '@emotion/react';
-import logo from './logo-grey.png';
-// import timeseriesScreen from './timeseries-screen.png';
-// import histogramScreen from './histogram-screen.png';
-// import kpiScreen from './kpi-screen.png';
+import logo from './logo.svg';
 import { MetricsProvider } from './containers/MetricsProvider';
 import { DateFilter } from './containers/DateFilter';
 import { MetricsTabs } from './containers/MetricsTabs';
@@ -19,10 +16,10 @@ const App = () => {
           >
             <img src={logo} alt="athenian-logo" />
           </a>
-          <h1>Athenian WebApp Tech Assessment</h1>
         </header>
         <div className="body">
-          <div className="daterange">
+          <h1>Athenian WebApp Tech Assessment</h1>
+          <div className="actions">
             <DateFilter />
           </div>
           <div className="insights">
@@ -39,19 +36,27 @@ const App = () => {
 const appStyle = () => {
   return css`
     width: 100%;
-    text-align: center;
-    background: whitesmoke;
-    padding: 50px 0;
+    background: #fafafb;
+    min-height: 100vh;
 
-    & div.daterange {
-      margin-top: 30px;
+    header {
+      width: 100%;
+      background: #fff;
+      padding: 0.625rem;
+      border-bottom: 1px solid #e3e6f0;
     }
 
-    & div.insights {
-      margin: 50px auto;
-      padding: 30px 0;
-      width: 90%;
-      border: 3px black solid;
+    div.body {
+      max-width: 1280px;
+      margin: 1.25rem auto;
+      padding: 0 1.25rem;
+    }
+
+    & div.actions {
+      margin-top: 1.875rem;
+      display: flex;
+      justify-content: end;
+      gap: 1.25rem;
     }
   `;
 };
