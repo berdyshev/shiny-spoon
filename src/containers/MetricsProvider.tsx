@@ -13,7 +13,10 @@ import { MetricsStorage } from '../core/MetricsStorage';
 import { DateRangeType } from '../types/DateRangeType';
 
 const initialContextValue = {
-  dateRange: [subMonths(new Date(), 1), new Date()] as DateRangeType,
+  dateRange: {
+    startDate: subMonths(new Date(), 1),
+    endDate: new Date(),
+  } as DateRangeType,
   metrics: MetricsStorage.getStoredItems(),
   setDateRange: () => {},
   addNewMetric: () => {},
