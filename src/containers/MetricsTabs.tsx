@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import { useMetricsContext } from './MetricsProvider';
 import { getMetricLabel, MetricsEnum } from '../types/MetricsEnum';
+import { usePRMetrics } from '../core/usePRMetrics';
 
 const tabsStyles = css`
   .react-tabs__tab-list {
@@ -50,7 +51,8 @@ const tabsStyles = css`
 `;
 
 export const MetricsTabs = () => {
-  const { metrics, removeMetric } = useMetricsContext();
+  const { metrics, dateRange, removeMetric } = useMetricsContext();
+  const { data, isLoading } = usePRMetrics(metrics, dateRange);
 
   return (
     <Tabs css={tabsStyles}>
@@ -69,7 +71,9 @@ export const MetricsTabs = () => {
         ))}
       </TabList>
       {metrics.map((name) => (
-        <TabPanel key={name}>{name}</TabPanel>
+        <TabPanel key={name}>
+          {isLoading ? 'Loading ...' : JSON.stringify(data)}
+        </TabPanel>
       ))}
     </Tabs>
   );
