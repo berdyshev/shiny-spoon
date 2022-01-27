@@ -13,7 +13,7 @@ export const AverageBox: React.FunctionComponent<{
 };
 
 const boxStyles = css`
-  max-width: 250px;
+  width: 250px;
   display: flex;
   align-items: center;
   justify-content: space-between;

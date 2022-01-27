@@ -24,8 +24,6 @@ export const SummaryChart: React.FunctionComponent<{
     };
   }, [data]);
 
-  console.log(chartDatasets);
-
   useEffect(() => {
     if (!canvasRef.current) {
       return;
@@ -38,7 +36,7 @@ export const SummaryChart: React.FunctionComponent<{
         datasets: [
           {
             data: dataset,
-            backgroundColor: dataset.map(() => '#147eec'),
+            backgroundColor: dataset.map(() => 'rgba(20, 126, 236, 0.7)'),
           },
         ],
       },

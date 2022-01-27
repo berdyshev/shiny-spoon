@@ -5,6 +5,7 @@ import { useMetricsContext } from './MetricsProvider';
 import { getMetricLabel, MetricsEnum } from '../types/MetricsEnum';
 import { usePRMetrics } from '../core/usePRMetrics';
 import { MetricInsights } from '../components/MetricInsights';
+import { InsightsSkeleton } from '../components/InsightsSkeleton';
 
 const tabsStyles = css`
   .react-tabs__tab-list {
@@ -58,23 +59,26 @@ export const MetricsTabs = () => {
   return (
     <Tabs css={tabsStyles}>
       <TabList>
-        {metrics.map((name) => (
-          <Tab key={name}>
-            <span>{getMetricLabel(name as MetricsEnum) || name} </span>
-            <button
-              title="Remove metric"
-              type="button"
-              onClick={() => removeMetric(name)}
-            >
-              ✕
-            </button>
-          </Tab>
-        ))}
+        {metrics.map((name) => {
+          const label = getMetricLabel(name as MetricsEnum) || name;
+          return (
+            <Tab key={name}>
+              <span>{label}</span>
+              <button
+                aria-label={`Remove metric ${label}`}
+                type="button"
+                onClick={() => removeMetric(name)}
+              >
+                ✕
+              </button>
+            </Tab>
+          );
+        })}
       </TabList>
       {metrics.map((name) => (
         <TabPanel key={name}>
           {isLoading || !data ? (
-            'Loading ...'
+            <InsightsSkeleton />
           ) : (
             <MetricInsights data={data[name]} metricName={name} />
           )}

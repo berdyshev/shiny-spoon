@@ -24,6 +24,10 @@ export const DetailedChart: React.FunctionComponent<{
       {
         data: data.map(({ date, value }) => ({ x: date, y: value })),
         borderColor: '#ffa008',
+        fill: {
+          target: 'origin',
+          above: 'rgba(255, 116, 39, 0.2)',
+        },
       },
       {
         data: [
@@ -36,7 +40,7 @@ export const DetailedChart: React.FunctionComponent<{
             y: average,
           },
         ],
-        borderColor: '#147eec',
+        borderColor: 'rgba(20, 126, 236, 0.7)',
         borderDash: [10, 10],
         borderWidth: 2,
         pointRadius: 0,
