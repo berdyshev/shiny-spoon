@@ -1,57 +1,46 @@
-import { useEffect, useMemo, useRef } from 'react';
-import Chart from 'chart.js/auto';
-import 'chartjs-adapter-date-fns';
-
-import { DetailedMetricDataType } from '../core/MetricsDataType';
-import { formatTimeDuration } from '../utils/duration';
-import format from 'date-fns/format';
-import { AverageBox } from './AverageBox';
 import { css } from '@emotion/react';
+import Chart from 'chart.js/auto';
+import { useEffect, useMemo, useRef } from 'react';
+import { SummaryMetricDataType } from '../core/MetricsDataType';
+import { formatTimeDuration } from '../utils/duration';
+import { AverageBox } from './AverageBox';
 
-export const DetailedChart: React.FunctionComponent<{
-  data: DetailedMetricDataType;
+const parseRepoName = (repoAddress: string) => repoAddress.split('/').pop();
+
+export const SummaryChart: React.FunctionComponent<{
+  data: SummaryMetricDataType;
   isTimeSeries: boolean;
 }> = ({ data, isTimeSeries }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
   const average = useMemo(
     () => data.reduce((sum, item) => sum + item.value, 0) / data.length,
     [data]
   );
 
   const chartDatasets = useMemo(() => {
-    return [
-      {
-        data: data.map(({ date, value }) => ({ x: date, y: value })),
-        borderColor: '#ffa008',
-      },
-      {
-        data: [
-          {
-            x: data[0].date,
-            y: average,
-          },
-          {
-            x: data[data.length - 1].date,
-            y: average,
-          },
-        ],
-        borderColor: '#147eec',
-        borderDash: [10, 10],
-        borderWidth: 2,
-        pointRadius: 0,
-      },
-    ];
-  }, [average, data]);
+    return {
+      labels: data.map((item) => parseRepoName(item.repository)),
+      dataset: data.map((item) => item.value),
+    };
+  }, [data]);
+
+  console.log(chartDatasets);
 
   useEffect(() => {
     if (!canvasRef.current) {
       return;
     }
+    const { labels, dataset } = chartDatasets;
     const chart = new Chart(canvasRef.current, {
-      type: 'line',
+      type: 'bar',
       data: {
-        datasets: chartDatasets,
+        labels: labels,
+        datasets: [
+          {
+            data: dataset,
+            backgroundColor: dataset.map(() => '#147eec'),
+          },
+        ],
       },
       options: {
         plugins: {
@@ -59,27 +48,16 @@ export const DetailedChart: React.FunctionComponent<{
           tooltip: {
             displayColors: false,
             callbacks: {
-              title(context) {
-                return context.map((item) =>
-                  format(
-                    (item.parsed as Record<'x' | 'y', Date | number>).x as Date,
-                    'MMM dd, yyyy'
-                  )
-                );
-              },
               label(context) {
+                console.log(context);
                 return isTimeSeries
-                  ? formatTimeDuration(
-                      (context.raw as Record<'x' | 'y', string | number>)
-                        .y as number
-                    ).toString()
+                  ? formatTimeDuration(context.raw as number).toString()
                   : context.label;
               },
             },
           },
         },
         scales: {
-          x: { type: 'time', time: { unit: 'day' } },
           y: {
             ticks: {
               maxTicksLimit: 5,
@@ -106,7 +84,6 @@ export const DetailedChart: React.FunctionComponent<{
             ? formatTimeDuration(average)
             : average.toLocaleString(undefined, { maximumFractionDigits: 1 })
         }
-        css={{ marginLeft: 'auto' }}
       />
     </div>
   );

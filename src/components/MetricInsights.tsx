@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 import { MetricsDataType } from '../core/MetricsDataType';
 import { DetailedChart } from './DetailedChart';
+import { SummaryChart } from './SummaryChart';
 
 export const MetricInsights: React.FunctionComponent<{
   data: MetricsDataType;
@@ -15,7 +16,12 @@ export const MetricInsights: React.FunctionComponent<{
           isTimeSeries={metricName.endsWith('time')}
         />
       </div>
-      <div className="col"></div>
+      <div className="col">
+        <SummaryChart
+          data={data.summary}
+          isTimeSeries={metricName.endsWith('time')}
+        />
+      </div>
     </div>
   );
 };
