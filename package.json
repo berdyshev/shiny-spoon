@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.5.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -31,6 +32,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "dev": "docker-compose -f docker-compose.dev.yml up",
+    "prod:build": "docker-compose -f docker-compose.prod.yml build",
+    "prod:run": "docker run -p 80:80 --name shiny-spoon shiny-spoon-prod",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
@@ -55,7 +59,6 @@
     ]
   },
   "devDependencies": {
-    "@emotion/babel-preset-css-prop": "^11.2.0",
     "prettier": "^2.5.1"
   }
 }

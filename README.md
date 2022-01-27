@@ -2,6 +2,16 @@
 
 # Senior Software Engineer - Webapp - Hiring Project
 
+## How to run
+
+1. Create `.env` file in the project's root and configure API base URL:
+   ```
+   REACT_APP_API_ENDPOINT="<api-base-url>"
+   ```
+2. To run in `development` mode use `yarn dev` and navigate to `http://localhost:3000/`
+3. To run in `production` mode, first build the image with `yarn prod:build` and then run `yarn prod:run`. The app will be available on `http://127.0.0.1/`
+
+
 ## Athenian Webapp project instructions
 
 The project consists of building a single-page application with charts consuming real data from the Athenian API using the endpoint provided.
