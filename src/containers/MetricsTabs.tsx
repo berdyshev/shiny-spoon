@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { useMetricsContext } from './MetricsProvider';
 import { getMetricLabel, MetricsEnum } from '../types/MetricsEnum';
 import { usePRMetrics } from '../core/usePRMetrics';
+import { MetricInsights } from '../components/MetricInsights';
 
 const tabsStyles = css`
   .react-tabs__tab-list {
@@ -72,7 +73,11 @@ export const MetricsTabs = () => {
       </TabList>
       {metrics.map((name) => (
         <TabPanel key={name}>
-          {isLoading ? 'Loading ...' : JSON.stringify(data)}
+          {isLoading || !data ? (
+            'Loading ...'
+          ) : (
+            <MetricInsights data={data[name]} metricName={name} />
+          )}
         </TabPanel>
       ))}
     </Tabs>
