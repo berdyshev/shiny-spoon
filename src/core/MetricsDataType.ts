@@ -1,7 +1,9 @@
-export type SummaryMetricDataType = Array<{ repository: string; value: number }>;
-export type DetailedMetricDataType = Array<{ date: string; value: number }>;
 
+export type MetricSeriesType = {
+  label: string;
+  value: number;
+}
 export interface MetricsDataType {
-  detailed: DetailedMetricDataType;
-  summary: SummaryMetricDataType;
+  detailed: Array<MetricSeriesType>;
+  summary: Array<MetricSeriesType>;
 }

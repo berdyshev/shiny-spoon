@@ -1,14 +1,14 @@
 import { css } from '@emotion/react';
 import Chart from 'chart.js/auto';
 import { useEffect, useMemo, useRef } from 'react';
-import { SummaryMetricDataType } from '../core/MetricsDataType';
+import { MetricSeriesType } from '../core/MetricsDataType';
 import { formatTimeDuration } from '../utils/duration';
 import { AverageBox } from './AverageBox';
 
 const parseRepoName = (repoAddress: string) => repoAddress.split('/').pop();
 
 export const SummaryChart: React.FunctionComponent<{
-  data: SummaryMetricDataType;
+  data: Array<MetricSeriesType>;
   isTimeSeries: boolean;
 }> = ({ data, isTimeSeries }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -19,7 +19,7 @@ export const SummaryChart: React.FunctionComponent<{
 
   const chartDatasets = useMemo(() => {
     return {
-      labels: data.map((item) => parseRepoName(item.repository)),
+      labels: data.map((item) => parseRepoName(item.label)),
       dataset: data.map((item) => item.value),
     };
   }, [data]);

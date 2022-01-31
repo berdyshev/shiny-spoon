@@ -2,14 +2,14 @@ import { useEffect, useMemo, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
 
-import { DetailedMetricDataType } from '../core/MetricsDataType';
+import { MetricSeriesType } from '../core/MetricsDataType';
 import { formatTimeDuration } from '../utils/duration';
 import format from 'date-fns/format';
 import { AverageBox } from './AverageBox';
 import { css } from '@emotion/react';
 
 export const DetailedChart: React.FunctionComponent<{
-  data: DetailedMetricDataType;
+  data: Array<MetricSeriesType>;
   isTimeSeries: boolean;
 }> = ({ data, isTimeSeries }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -22,7 +22,7 @@ export const DetailedChart: React.FunctionComponent<{
   const chartDatasets = useMemo(() => {
     return [
       {
-        data: data.map(({ date, value }) => ({ x: date, y: value })),
+        data: data.map(({ label, value }) => ({ x: label, y: value })),
         borderColor: '#ffa008',
         fill: {
           target: 'origin',
@@ -32,11 +32,11 @@ export const DetailedChart: React.FunctionComponent<{
       {
         data: [
           {
-            x: data[0].date,
+            x: data[0].label,
             y: average,
           },
           {
-            x: data[data.length - 1].date,
+            x: data[data.length - 1].label,
             y: average,
           },
         ],
