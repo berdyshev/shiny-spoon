@@ -13,7 +13,7 @@ export const SummaryChart: React.FunctionComponent<{
 }> = ({ data, isTimeSeries }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const average = useMemo(
-    () => data.reduce((sum, item) => sum + item.value, 0) / data.length,
+    () => data.reduce((sum, item) => sum + item.value, 0) / data.length || 0,
     [data]
   );
 

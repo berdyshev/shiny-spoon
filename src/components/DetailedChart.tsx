@@ -15,7 +15,7 @@ export const DetailedChart: React.FunctionComponent<{
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const average = useMemo(
-    () => data.reduce((sum, item) => sum + item.value, 0) / data.length,
+    () => data.reduce((sum, item) => sum + item.value, 0) / data.length || 0,
     [data]
   );
 
@@ -30,16 +30,18 @@ export const DetailedChart: React.FunctionComponent<{
         },
       },
       {
-        data: [
-          {
-            x: data[0].label,
-            y: average,
-          },
-          {
-            x: data[data.length - 1].label,
-            y: average,
-          },
-        ],
+        data: data.length
+          ? [
+              {
+                x: data[0].label,
+                y: average,
+              },
+              {
+                x: data[data.length - 1].label,
+                y: average,
+              },
+            ]
+          : [],
         borderColor: 'rgba(20, 126, 236, 0.7)',
         borderDash: [10, 10],
         borderWidth: 2,
